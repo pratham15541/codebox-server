@@ -5,6 +5,18 @@ import otpGenerator from "otp-generator";
 import multer from "multer";
 import fs from "fs";
 
+// Function to create the uploads folder if it doesn't exist
+const createUploadsFolderIfNotExists = () => {
+  const folderPath = 'uploads';
+  if (!fs.existsSync(folderPath)) {
+    fs.mkdirSync(folderPath);
+  }
+};
+
+// Create the uploads folder if it doesn't exist
+createUploadsFolderIfNotExists();
+
+
 export const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/"); // Destination folder for file uploads
