@@ -1,7 +1,8 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
+RUN npm install pm2 -g
 
 # Copy package.json and install dependencies
 COPY package.json .
@@ -15,4 +16,5 @@ COPY . .
 EXPOSE 8080
 
 # Command to run the application
-CMD ["npm", "run", "start"]
+# CMD ["npm", "run", "start"]
+CMD ["npm" ,"run","pm2:dockerStart"]
