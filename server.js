@@ -22,7 +22,7 @@ app.disable('x-powered-by'); // less hackers know about our stack
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const port =process.env.PORT || 8080;
+const port =process.env.PORT || 8000;
 
 /** HTTP GET Request */
 app.get('/', (req, res) => {
