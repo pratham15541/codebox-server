@@ -50,16 +50,20 @@ export async function register(req, res) {
     const { username, password, email } = req.body;
     const profile = req.file ? req.file.path : ""; // Check if a file is uploaded and get its path
 
-    // Check the existing user
-    const existingUser = await UserModel.findOne({ username });
+    // Check the existing user (ignore soft-deleted accounts)
+    const existingUser = await UserModel.findOne({ username, isDeleted: false });
     if (existingUser) {
-      return res.status(400).send({ error: "Please use a unique username" });
+      return res.status(400).send({
+        error: "Username already taken. Try signing in or use a different username.",
+      });
     }
 
     // Check for existing email
-    const existingEmail = await UserModel.findOne({ email });
+    const existingEmail = await UserModel.findOne({ email, isDeleted: false });
     if (existingEmail) {
-      return res.status(400).send({ error: "Please use a unique Email" });
+      return res.status(400).send({
+        error: "Email already registered. Try signing in or use a different email.",
+      });
     }
 
     if (!password) {

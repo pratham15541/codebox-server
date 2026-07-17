@@ -5,6 +5,7 @@ import * as codeController from '../controllers/userCodeController.js';
 import multer from 'multer';
 import {auth,localVariables} from '../middlewares/auth.js';
 import { registerMail } from '../controllers/mailer.js'
+import * as chatController from '../controllers/chatController.js';
 const upload = multer({ storage: controller.storage });
 
 
@@ -51,7 +52,11 @@ router.route('/revertDeletedCode').patch(auth,codeController.revertDeletedCode);
 //delete request
 router.route('/deleteCode').patch(auth,codeController.deleteCode); // delete code by id
 
-
-
+// chat / code explanation routes
+router.route('/chat').post(auth, chatController.chat);
+router.route('/chat/index').post(auth, chatController.indexCode);
+router.route('/chat/sessions').get(auth, chatController.getChatSessions);
+router.route('/chat/messages').get(auth, chatController.getChatMessages);
+router.route('/chat/chunks').get(auth, chatController.getCodeChunks);
 
 export default router;

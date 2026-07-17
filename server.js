@@ -40,5 +40,6 @@ try {
         console.log(`Server running on port ${port}`);
     });
 } catch (error) {
-    console.log("Error: ", error.message);
+    console.error("Failed to start server:", error.message);
+    process.exit(1);
 }
